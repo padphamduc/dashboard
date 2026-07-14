@@ -1,0 +1,739 @@
+/* ==========================================================================
+   Design System & Global Variables
+   ========================================================================== */
+:root {
+  --bg-color: #0c0c0e;
+  --bg-card: rgba(22, 22, 26, 0.72);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --gold: #ffb400;
+  --gold-glow: rgba(255, 180, 0, 0.35);
+  --gold-gradient: linear-gradient(135deg, #ffe066 0%, #ffb400 100%);
+  --transition-normal: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  background-image: 
+    linear-gradient(rgba(255, 180, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 180, 0, 0.015) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ==========================================================================
+   Layout & Container
+   ========================================================================== */
+.admin-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Header */
+.admin-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: var(--transition-normal);
+  margin-bottom: 15px;
+}
+
+.back-link:hover {
+  color: var(--gold);
+}
+
+.back-link i {
+  width: 16px;
+  height: 16px;
+}
+
+.admin-title {
+  font-family: "Outfit", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1.5px;
+  margin-bottom: 5px;
+}
+
+.admin-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Alert box */
+.alert-info {
+  display: flex;
+  gap: 15px;
+  padding: 15px 20px;
+  background: rgba(255, 180, 0, 0.04);
+  border-color: rgba(255, 180, 0, 0.2);
+}
+
+.alert-icon {
+  color: var(--gold);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-body h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.alert-body p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 25px;
+}
+
+/* ==========================================================================
+   Sidebar Tabs Navigation
+   ========================================================================== */
+.admin-sidebar {
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: fit-content;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-secondary);
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition-normal);
+  border-left: 3px solid transparent;
+}
+
+.tab-btn i {
+  width: 18px;
+  height: 18px;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+}
+
+.tab-btn.active {
+  background: rgba(255, 180, 0, 0.06);
+  color: var(--gold);
+  border-left: 3px solid var(--gold);
+  box-shadow: inset 5px 0 15px rgba(255, 180, 0, 0.02);
+}
+
+/* ==========================================================================
+   Main Forms Panel
+   ========================================================================== */
+.admin-main {
+  padding: 30px;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  margin-bottom: 25px;
+}
+
+/* Form inputs */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-group input, 
+.form-group textarea {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition-normal);
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(255, 180, 0, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.input-hint {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.form-actions {
+  margin-top: 30px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.right-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  outline: none;
+}
+
+.btn i {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primary {
+  background: var(--gold-gradient);
+  border: none;
+  color: #000000;
+  box-shadow: 0 4px 15px var(--gold-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 180, 0, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-download {
+  background: rgba(255, 180, 0, 0.06);
+  border: 1px solid rgba(255, 180, 0, 0.2);
+  color: var(--gold);
+}
+
+.btn-download:hover {
+  background: rgba(255, 180, 0, 0.12);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.btn-download:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(18, 18, 22, 0.95);
+  border: 1px solid #10b981;
+  border-radius: 10px;
+  padding: 15px 25px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.1);
+  transform: translateY(100px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 9999;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  color: #10b981;
+  width: 20px;
+  height: 20px;
+}
+
+.toast-message {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+  
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+  
+  .tab-btn {
+    white-space: nowrap;
+    padding: 10px 15px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .tab-btn.active {
+    border-left: none;
+    border-bottom: 3px solid var(--gold);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .right-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ==========================================================================
+   Dynamic Social Links List Editor Styles
+   ========================================================================== */
+.social-item-row {
+  display: grid;
+  grid-template-columns: 1.5fr 2.5fr 2.5fr auto;
+  gap: 15px;
+  align-items: flex-end;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  animation: slideInRow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes slideInRow {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.social-item-row .form-group {
+  margin-bottom: 0;
+}
+
+.btn-delete-social {
+  background: rgba(255, 60, 130, 0.1);
+  border: 1px solid rgba(255, 60, 130, 0.2);
+  color: rgb(255, 60, 130);
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.btn-delete-social:hover {
+  background: rgba(255, 60, 130, 0.25);
+  border-color: rgb(255, 60, 130);
+  transform: scale(1.05);
+}
+
+.btn-delete-social i {
+  width: 18px;
+  height: 18px;
+}
+
+.add-social-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.btn-add-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 180, 0, 0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.btn-add-social:hover {
+  background: var(--gold-gradient);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 180, 0, 0.2);
+}
+
+.btn-add-social i {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 600px) {
+  .social-item-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .btn-delete-social {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+
+/* ==========================================================================
+   Dynamic Projects List Editor Styles
+   ========================================================================== */
+.project-item-row {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  animation: slideInRow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.project-item-row .form-group-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 2.5fr;
+  gap: 15px;
+}
+
+.delete-project-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.btn-delete-project {
+  background: rgba(255, 60, 130, 0.1);
+  border: 1px solid rgba(255, 60, 130, 0.2);
+  color: rgb(255, 60, 130);
+  padding: 10px 18px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.btn-delete-project:hover {
+  background: rgba(255, 60, 130, 0.25);
+  border-color: rgb(255, 60, 130);
+  transform: translateY(-2px);
+}
+
+.btn-delete-project i {
+  width: 16px;
+  height: 16px;
+}
+
+.add-project-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.btn-add-project {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 180, 0, 0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.btn-add-project:hover {
+  background: var(--gold-gradient);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 180, 0, 0.2);
+}
+
+.btn-add-project i {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .project-item-row .form-group-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* ==========================================================================
+   Birthday Wishes Tab Admin Styles
+   ========================================================================== */
+.wishes-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 15px;
+}
+
+.wish-admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: all 0.3s ease;
+}
+
+.wish-admin-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 180, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.wish-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+  padding-right: 20px;
+}
+
+.wish-text-content {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.wish-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.wish-meta-info i {
+  width: 12px;
+  height: 12px;
+}
+
+.wish-delete-btn {
+  background: rgba(255, 82, 124, 0.1);
+  border: 1px solid rgba(255, 82, 124, 0.2);
+  color: #ff527c;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.wish-delete-btn:hover {
+  background: #ff527c;
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(255, 82, 124, 0.3);
+}
+
+.wish-delete-btn i {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-clear-wishes-danger {
+  transition: all 0.3s ease;
+}
+
+.btn-clear-wishes-danger:hover {
+  background: #ff527c !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 15px rgba(255, 82, 124, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Photo Album Management Styles
+   ========================================================================== */
+.photo-item-row {
+  display: flex;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  position: relative;
+  align-items: center;
+}
+
+.photo-item-row .form-group {
+  margin-bottom: 0;
+}
+
+.btn-delete-photo:hover {
+  background: #ff527c !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 10px rgba(255, 82, 124, 0.3);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .photo-item-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .photo-item-row .btn-delete-photo {
+    align-self: flex-end;
+    margin-bottom: 0 !important;
+    margin-top: 10px;
+    width: 100% !important;
+  }
+}

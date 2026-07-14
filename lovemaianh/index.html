@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gửi Đến Mai Anh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css?v=9.0">
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<canvas id="heart"></canvas>
+<canvas id="fireworks-canvas"></canvas>
+
+  <!-- Floating Love Letter & Counter Card -->
+  <div class="love-card glass-panel" id="love-card" style="display: none;">
+    <div class="love-card-header">
+      <div class="avatar-couple">
+        <img src="../assets/images/avatar.png" alt="Anh Đức" id="couple-avatar-user">
+        <div class="heart-pulse-icon-wrapper">
+          <svg class="heart-pulse-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <img src="../assets/images/manh.png" alt="Mai Anh" id="couple-avatar-gf">
+      </div>
+      <button class="close-card-btn" id="close-card-btn" aria-label="Minimize">
+        <i data-lucide="minus"></i>
+      </button>
+    </div>
+    
+    <div class="love-card-body">
+      <div class="love-days-counter love-counter">
+        <div class="counter-number">
+          <span id="days-val">0</span> <span class="lbl">ngày</span>
+        </div>
+        <div class="counter-sub" id="time-val">00:00:00</div>
+      </div>
+      
+      <div class="love-letter">
+        <span id="typewriter-text"></span>
+        <span class="cursor">|</span>
+      </div>
+    </div>
+  </div>
+
+<!-- Các nút chức năng ở dưới -->
+<div class="button-container">
+  <button id="gift-button" class="round-glass-btn" title="Mở Lời Chúc">
+    <i data-lucide="heart" class="heart-pulse-icon"></i>
+  </button>
+  <button id="expand-card-btn" class="round-glass-btn" title="Mở Thư Tình">
+    <i data-lucide="heart" class="heart-pulse-icon"></i>
+  </button>
+</div>
+
+<!-- Lời chúc ẩn (Modal) -->
+<div id="wishes-modal" class="modal">
+  <span class="close-btn">&times;</span>
+  <div class="modal-content">
+    <h2 class="wishes-title">Gửi đến Mai Anh</h2>
+    
+
+    <!-- Lời chúc chạy chữ -->
+    <div id="wishes-text" class="wishes-text"></div>
+    
+    <!-- Nút load lại ở góc dưới bên phải -->
+    <button id="replay-button" class="reload-btn">🔄</button>
+    
+    <!-- Nhân vật Bunny bắn tim ở góc dưới bên trái -->
+    <div id="bunny-container" class="bunny-container">
+      <img id="bunny-shooter" src="./tho.png" alt="Bunny" />
+    </div>
+    
+    <div class="floating-hearts-container"></div>
+  </div>
+</div>
+<!-- Âm thanh nền gốc và nhạc lời chúc -->
+<audio id="bg-music" src="./maianh.mp3" autoplay loop></audio>
+<audio id="wish-music" src="./loichuc.mp3"></audio>
+<!-- partial -->
+  <script src="../assets/js/config.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

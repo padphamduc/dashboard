@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phạm Anh Đức</title>
+    <meta name="description" content="Phạm Anh Đức">
+    
+    <!-- Google Fonts: Outfit, JetBrains Mono & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Cinzel:wght@500;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Background grid line overlays -->
+    <div class="grid-lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <!-- Main vCard Wrapper -->
+    <div class="vcard-wrapper">
+        
+
+
+        <!-- Left Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="assets/images/cover.png" alt="Profile Cover" class="cover-img">
+            </div>
+            
+            <div class="avatar-container">
+                <img src="assets/images/avatar.png" alt="Phạm Anh Đức" class="avatar-img">
+            </div>
+            
+            <div class="profile-body">
+                <h1 class="profile-name">Pham anh duc</h1>
+                <p class="profile-title">Student</p>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/phamanhduc17122005" target="_blank" rel="noopener noreferrer"><img src="assets/images/fb.png" alt="Facebook"><span>Facebook</span></a>
+                    <a href="https://zalo.me/0347697817/" target="_blank" rel="noopener noreferrer"><img src="assets/images/zl.png" alt="Zalo"><span>Zalo</span></a>
+                    <a href="https://www.tiktok.com/@padphamduc" target="_blank" rel="noopener noreferrer"><img src="assets/images/tt.png" alt="TikTok"><span>TikTok</span></a>
+                    <a href="https://www.instagram.com/phamanhduc17122005/" target="_blank" rel="noopener noreferrer"><img src="assets/images/in.png" alt="Instagram"><span>Instagram</span></a>
+                </div>
+            </div>
+            
+            <div class="profile-footer">
+                <a href="#contact" class="profile-action-btn" id="contact-me-trigger">
+                    <span>CONTACT ME</span>
+                    <i data-lucide="send"></i>
+                </a>
+                
+            </div>
+        </div>
+
+        <!-- Right Content Panel -->
+        <main class="content-panel">
+            
+            <!-- Tab: About Me -->
+            <section id="about" class="tab-content active">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">
+                        <span class="letter-highlight">👤</span>About Me
+                    </h2>
+                </div>
+                
+                <div class="about-intro">
+                    <h3>Hello, my full name is Pham Anh Duc</h3>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">AGE</span>
+                        <span class="info-dots"></span>
+                        <!-- Số tuổi sẽ tự động hiển thị tại đây -->
+                        <span class="info-value" id="my-age">Đang tính...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">RESIDENCE</span>
+                        <span class="info-dots"></span>
+                        <span class="info-value">Vietnam</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">FREELANCE</span>
+                        <span class="info-dots"></span>
+                        <span class="info-value">Available</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">ADDRESS</span>
+                        <span class="info-dots"></span>
+                        <span class="info-value">Hanoi, Vietnam</span>
+                    </div>
+                </div>
+
+                <!-- Tuổi được tính động từ script.js -->
+
+                <div class="services-section">
+                    <div class="section-title-wrapper sub">
+                        <h3 class="section-title">
+                            <span class="letter-highlight">🎨</span>My design
+                        </h3>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <!-- Service 1: lovemaianh -->
+                        <a href="lovemaianh/index.html" target="_blank" class="service-card" style="text-decoration: none; display: block;">
+                            <div class="project-thumbnail">
+                                <img src="https://i.pinimg.com/736x/33/6e/42/336e42f6f4ac39a9d32d7217e38b0089.jpg" alt="Love Mai Anh">
+                            </div>
+                            <h4>Love Mai Anh</h4>
+                            <p>Trang web kỷ niệm tình yêu 3D tương tác không gian. Trái tim 3D ghép từ hạt cát siêu nhỏ, tinh vân chuyển động và âm nhạc chimes thư giãn.</p>
+                        </a>
+                        
+                        <!-- Service 2: loveday -->
+                        <a href="loveday/index.html" target="_blank" class="service-card" style="text-decoration: none; display: block;">
+                            <div class="project-thumbnail">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReeeV_5lGYklpgixQD4sQm1KdbZ3qqDcFpamFOJ_AYkXg-vGB_H58_IAfQ&s=10" alt="Loveday Counter">
+                            </div>
+                            <h4>Loveday Counter</h4>
+                            <p>Trang web đếm ngày yêu nhau của Anh Đức và Mai Anh. Theo dõi thời gian bên nhau theo thời gian thực cùng hiệu ứng hạt trái tim bay lãng mạn.</p>
+                        </a>
+
+                        <!-- Service 3: birth -->
+                        <a href="birth/index.html" target="_blank" class="service-card" style="text-decoration: none; display: block;">
+                            <div class="project-thumbnail">
+                                <img src="https://png.pngtree.com/thumb_back/fh260/background/20250612/pngtree-paper-cut-happy-birthday-greeting-card-background-image_17421069.jpg" alt="Happy Birthday Mai Anh">
+                            </div>
+                            <h4>Happy Birthday Mai Anh</h4>
+                            <p>Trang web chúc mừng sinh nhật ngọt ngào gửi tặng Mai Anh tuổi 19. Gồm các bước viết điều ước thả đèn trời, thổi nến sinh nhật 3D xoay tròn tương tác, phong thư tình tự gõ chữ typewriter và album ảnh Polaroid kỷ niệm.</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Contact -->
+            <section id="contact" class="tab-content">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">
+                        <span class="letter-highlight">📞</span>Contact
+                    </h2>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-details">
+                        <div class="detail-block">
+                            <i data-lucide="mail"></i>
+                            <div class="block-content">
+                                <span>Email</span>
+                                <a href="mailto:padphamduc@gmail.com">padphamduc@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="detail-block">
+                            <i data-lucide="phone"></i>
+                            <div class="block-content">
+                                <span>Điện thoại</span>
+                                <a href="tel:+84347697817">+84 347 697 817</a>
+                            </div>
+                        </div>
+                        <div class="detail-block">
+                            <i data-lucide="map-pin"></i>
+                            <div class="block-content">
+                                <span>Địa chỉ</span>
+                                <p>Hà Nội, Việt Nam</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" required placeholder="Họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" required placeholder="Địa chỉ Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" required placeholder="Lời nhắn của bạn"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="contact-submit-btn" id="submit-btn">
+                            <span>SEND MESSAGE</span>
+                            <i data-lucide="send"></i>
+                        </button>
+                        
+                        <div id="form-feedback" class="form-feedback"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Core JS -->
+    <script src="assets/js/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

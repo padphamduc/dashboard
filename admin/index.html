@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Cấu Hình Website</title>
+  
+  <!-- Google Fonts: Outfit & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Header -->
+    <header class="admin-header">
+      <a href="../index.html" class="back-link">
+        <i data-lucide="arrow-left"></i> Quay lại Portfolio
+      </a>
+      <h1 class="admin-title">ADMIN CONTROL PANEL</h1>
+      <p class="admin-subtitle">Cấu hình các thông số và nội dung hiển thị trên hệ thống website</p>
+    </header>
+
+
+    <div class="admin-layout">
+      <!-- Sidebar Navigation tabs -->
+      <aside class="admin-sidebar glass-panel">
+        <button class="tab-btn active" data-tab="profile">
+          <i data-lucide="user"></i> Thông Tin Cá Nhân
+        </button>
+        <button class="tab-btn" data-tab="love">
+          <i data-lucide="heart"></i> Thông Tin Yêu Đương
+        </button>
+        <button class="tab-btn" data-tab="social">
+          <i data-lucide="share-2"></i> Mạng Xã Hội
+        </button>
+        <button class="tab-btn" data-tab="letter">
+          <i data-lucide="file-text"></i> Thư Tình 3D
+        </button>
+        <button class="tab-btn" data-tab="wishes">
+          <i data-lucide="gift"></i> Điều Ước Sinh Nhật
+        </button>
+        <button class="tab-btn" data-tab="gallery">
+          <i data-lucide="image"></i> Album Ảnh Kỷ Niệm
+        </button>
+        <button class="tab-btn" data-tab="birthday-letter">
+          <i data-lucide="mail"></i> Thư Sinh Nhật
+        </button>
+      </aside>
+
+      <!-- Main Config Forms Panel -->
+      <main class="admin-main glass-panel">
+        <form id="config-form">
+          <!-- Tab: Profile Info -->
+          <div class="tab-content active" id="profile">
+            <h2 class="section-title">👤 Thông Tin Cá Nhân</h2>
+            <p class="section-desc">Cập nhật thông tin cơ bản hiển thị trên Profile Card trang chủ.</p>
+            
+            <div class="form-group">
+              <label for="input-name">Họ và Tên</label>
+              <input type="text" id="input-name" placeholder="Ví dụ: PHẠM ANH ĐỨC">
+              <span class="input-hint">Định dạng chữ nên viết hoa để giữ giao diện sang trọng.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="input-birthdate">Ngày Sinh (yyyy-mm-dd)</label>
+              <input type="date" id="input-birthdate">
+              <span class="input-hint">Dùng để tự động tính toán tuổi hiện tại trên trang giới thiệu.</span>
+            </div>
+          </div>
+
+          <!-- Tab: Love anniversary info -->
+          <div class="tab-content" id="love">
+            <h2 class="section-title">💖 Thông Tin Yêu Đương</h2>
+            <p class="section-desc">Cấu hình ngày kỷ niệm hẹn hò, tên bạn gái, ảnh đại diện cặp đôi và châm ngôn tình yêu.</p>
+            
+            <div class="form-group">
+              <label for="input-girlfriend">Tên Bạn Gái</label>
+              <input type="text" id="input-girlfriend" placeholder="Ví dụ: Mai Anh">
+            </div>
+
+            <div class="form-group">
+              <label for="input-anniversary">Ngày Kỷ Niệm (Năm-Tháng-NgàyTHi:Phút:Giây)</label>
+              <input type="datetime-local" id="input-anniversary">
+              <span class="input-hint">Thời điểm bắt đầu đếm ngày yêu (mặc định: Thứ Bảy, 04/07/2026 lúc 23:40).</span>
+            </div>
+
+            <div class="form-group">
+              <label for="input-user-avatar">Ảnh Đại Diện Của Bạn (Đường dẫn hoặc URL)</label>
+              <input type="text" id="input-user-avatar" placeholder="Ví dụ: ../assets/images/avatar.png">
+            </div>
+
+            <div class="form-group">
+              <label for="input-gf-avatar">Ảnh Đại Diện Bạn Gái (Đường dẫn hoặc URL)</label>
+              <input type="text" id="input-gf-avatar" placeholder="Ví dụ: ../assets/images/manh.png">
+            </div>
+
+            <div class="form-group">
+              <label for="input-love-quote">Châm Ngôn Tình Yêu (Loveday Quote)</label>
+              <textarea id="input-love-quote" rows="3" placeholder="Nhập câu châm ngôn ngọt ngào của hai bạn..."></textarea>
+            </div>
+          </div>
+
+          <!-- Tab: Social Links -->
+          <div class="tab-content" id="social">
+            <h2 class="section-title">🔗 Liên Kết Mạng Xã Hội</h2>
+            <p class="section-desc">Quản lý danh sách mạng xã hội hiển thị trên Profile Card. Bạn có thể tự do thêm mới, thay đổi tên, đường dẫn và hình ảnh đại diện (icon) của bất kỳ mạng xã hội nào.</p>
+            
+            <div id="social-list-container">
+              <!-- Các dòng mạng xã hội sẽ được chèn động ở đây -->
+            </div>
+            
+            <div class="add-social-wrapper">
+              <button type="button" id="btn-add-social" class="btn btn-secondary btn-add-social">
+                <i data-lucide="plus"></i> Thêm Mạng Xã Hội
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab: Love Letter -->
+          <div class="tab-content" id="letter">
+            <h2 class="section-title">✍️ Nội Dung Thư Tình 3D</h2>
+            <p class="section-desc">Chỉnh sửa nội dung bức thư chạy chữ trên trang Trái Tim 3D Cosmic Heart.</p>
+            
+            <div class="form-group">
+              <label for="input-letter">Nội dung thư tình</label>
+              <textarea id="input-letter" rows="8" placeholder="Nhập bức thư tình ngọt ngào tại đây..."></textarea>
+              <span class="input-hint">Bức thư sẽ chạy chữ máy đánh chữ từ từ trên trang Cosmic Heart 3D.</span>
+            </div>
+          </div>
+
+          <!-- Tab: Birthday Wishes -->
+          <div class="tab-content" id="wishes">
+            <h2 class="section-title">🎂 Điều Ước Sinh Nhật</h2>
+            <p class="section-desc">Danh sách điều ước mà Mai Anh đã viết trước khi thổi nến.</p>
+            
+            <div class="wishes-admin-list" id="wishes-admin-list">
+              <!-- Wishes populated dynamically -->
+            </div>
+            
+            <div class="wishes-actions-row" style="margin-top: 25px;">
+              <button type="button" id="btn-clear-wishes" class="btn btn-secondary btn-clear-wishes-danger" style="border-color:#ff527c;color:#ff527c;">
+                <i data-lucide="trash-2"></i> Xóa Tất Cả Điều Ước
+              </button>
+            </div>
+
+            <div class="form-group" style="margin-top: 35px; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 25px;">
+              <label for="input-email-key">Access Key nhận điều ước qua Email (Web3Forms)</label>
+              <input type="text" id="input-email-key" placeholder="Ví dụ: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee">
+              <span class="input-hint">
+                Để nhận được điều ước của bạn gái trực tiếp gửi về hòm thư Gmail của bạn:
+                <br>1. Truy cập trang web <a href="https://web3forms.com/" target="_blank" style="color: var(--secondary-color); text-decoration: underline;">web3forms.com</a> (hoàn toàn miễn phí).
+                <br>2. Nhập Email của bạn và nhấn nhận Access Key.
+                <br>3. Copy mã Access Key được gửi vào hòm thư của bạn và dán vào ô bên trên, sau đó bấm Lưu Cấu Hình.
+              </span>
+            </div>
+          </div>
+
+          <!-- Tab: Photo Album Management -->
+          <div class="tab-content" id="gallery">
+            <h2 class="section-title">📸 Album Ảnh Kỷ Niệm</h2>
+            <p class="section-desc">Quản lý danh sách hình ảnh hiển thị trong Album Kỷ Niệm trên trang web sinh nhật.</p>
+            
+            <div id="photos-list-container">
+              <!-- Dynamic list of photo config rows -->
+            </div>
+            
+            <div class="add-photo-wrapper" style="margin-top: 15px;">
+              <button type="button" id="btn-add-photo" class="btn btn-secondary btn-add-photo">
+                <i data-lucide="plus"></i> Thêm Hình Ảnh
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab: Birthday Greeting Letter -->
+          <div class="tab-content" id="birthday-letter">
+            <h2 class="section-title">✉️ Thư Chúc Mừng Sinh Nhật</h2>
+            <p class="section-desc">Chỉnh sửa nội dung bức thư chúc mừng hiển thị ở Bước 3 trên trang sinh nhật Mai Anh.</p>
+            
+            <div class="form-group">
+              <label for="input-birthday-letter">Nội dung thư chúc mừng</label>
+              <textarea id="input-birthday-letter" rows="10" placeholder="Nhập lời chúc mừng sinh nhật ngọt ngào tại đây..."></textarea>
+              <span class="input-hint">Mẹo: Mỗi đoạn văn bản viết trên một dòng mới (ấn Enter) sẽ tương ứng với các phần chữ chạy trên trang sinh nhật.</span>
+            </div>
+          </div>
+
+
+          <!-- Action buttons -->
+          <div class="form-actions">
+            <div class="left-actions">
+              <button type="button" id="btn-reset" class="btn btn-secondary" title="Xóa cấu hình tùy chỉnh để dùng mặc định">
+                <i data-lucide="rotate-ccw"></i> Reset
+              </button>
+            </div>
+            
+            <div class="right-actions">
+              <button type="button" id="btn-download-config" class="btn btn-download" title="Tải tệp tin cấu hình dự phòng khi bị trình duyệt chặn">
+                <i data-lucide="download"></i> Tải tệp config.js
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i data-lucide="save"></i> Lưu Cấu Hình
+              </button>
+            </div>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <i data-lucide="check-circle" class="toast-icon"></i>
+    <span class="toast-message">Đã lưu cấu hình thành công!</span>
+  </div>
+
+  <!-- Load static config fallback first -->
+  <script src="../assets/js/config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

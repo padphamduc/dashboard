@@ -1,0 +1,485 @@
+:root {
+  --primary-color: rgb(255, 60, 130);
+  --primary-glow: rgba(255, 60, 130, 0.4);
+  --bg-glass: rgba(15, 10, 15, 0.52);
+  --border-glass: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #000000;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#heart {
+  z-index: 1;
+}
+
+#fireworks-canvas {
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Button container at bottom */
+.button-container {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Premium glassmorphic circular button style */
+.round-glass-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  border: 1px solid var(--border-glass);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: var(--primary-color);
+  outline: none;
+  z-index: 10;
+}
+
+.round-glass-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.round-glass-btn:active {
+  transform: scale(0.95);
+}
+
+.round-glass-btn i {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Glassmorphic Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(25, 8, 20, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: rgba(35, 10, 25, 0.75);
+  border: 1px solid rgba(255, 105, 180, 0.25);
+  padding: 30px 35px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(255, 105, 180, 0.25);
+  width: 85%;
+  max-width: 420px;
+  transform: scale(0.8);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.close-btn:hover {
+  color: #ff4d6d;
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* Title and text in modal */
+.wishes-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  color: #ff85a2;
+  margin-top: 0;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.wishes-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+  color: white;
+  margin: 10px 0;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.85);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Character spacing and alignment for heart particle assembly */
+.wish-char {
+  display: inline-block;
+  white-space: pre;
+  transform-origin: center;
+}
+
+/* Reload button placed in the bottom-right corner */
+.reload-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+  padding: 5px;
+  outline: none;
+}
+
+.reload-btn:hover {
+  color: #ff85a2;
+  transform: rotate(180deg) scale(1.2);
+  text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+}
+
+.reload-btn:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
+/* Bunny container floats in the corner */
+.bunny-container {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+  width: 180px;
+  height: auto;
+  z-index: 5;
+  animation: floatBunny 1.6s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+#bunny-shooter {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.15s;
+  transform-origin: bottom left;
+}
+
+#bunny-shooter.shoot-pulse {
+  transform: scale(1.15) rotate(-5deg);
+  filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.9));
+}
+
+@keyframes floatBunny {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+/* Tiny sparkle puzzle pieces assembling text */
+.sparkle-particle {
+  position: fixed;
+  pointer-events: none;
+  color: #ff85a2;
+  text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493;
+  font-size: 22px; /* Doubled particle size */
+  z-index: 99999; /* Ensure visible above glassmorphic modal backdrop (100) */
+}
+
+/* Splash spark pieces */
+.heart-spark {
+  position: fixed;
+  pointer-events: none;
+  color: #ff85a2;
+  text-shadow: 0 0 4px #ff69b4;
+  font-size: 15px; /* Doubled spark size */
+  z-index: 99999; /* Ensure visible above glassmorphic modal backdrop (100) */
+  transition: all 0.25s ease-out;
+}
+
+.floating-hearts-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-380px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wishes-title {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+  .wishes-text {
+    font-size: 19px;
+    line-height: 1.5;
+    padding-bottom: 100px; /* Prevent text from overlapping the bunny and reload button */
+    text-shadow: 0 0 6px rgba(255, 105, 180, 0.7);
+  }
+  .modal-content {
+    padding: 25px 15px 15px 15px;
+    width: 92%;
+    height: auto;
+    max-height: 82vh;
+    max-width: 380px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 105, 180, 0.25);
+    overflow-y: auto;
+    display: block;
+  }
+  .bunny-container {
+    width: 95px;
+    bottom: 12px;
+    left: 12px;
+  }
+  .reload-btn {
+    bottom: 15px;
+    right: 15px;
+    font-size: 20px;
+  }
+  .close-btn {
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+  }
+  /* Responsive love card */
+  .love-card {
+    left: 15px;
+    right: 15px;
+    bottom: 20px;
+    width: auto;
+    max-width: 290px;
+    margin: 0 auto;
+    padding: 15px 18px;
+    gap: 10px;
+  }
+}
+
+/* Glassmorphism CSS Framework */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  color: #fff;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  position: absolute;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: auto;
+}
+
+/* Floating Love Letter & Counter Card */
+.love-card {
+  left: 30px;
+  bottom: 30px;
+  width: 290px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 60, 130, 0.05);
+  animation: slideIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-card-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-card-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.close-card-btn i {
+  width: 14px;
+  height: 14px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6ea0 0%, #ff3c82 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.love-counter, .love-days-counter {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.counter-number {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.counter-number .lbl {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.counter-sub {
+  font-size: 0.95rem;
+  font-family: monospace;
+  color: var(--primary-color);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.love-letter {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  min-height: 80px;
+}
+
+/* Avatar Couple inside love-card-header */
+.love-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 15px;
+  position: relative;
+}
+
+.avatar-couple {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-couple img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-glow);
+  object-fit: cover;
+}
+
+.heart-pulse-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-pulse-icon-wrapper svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+.heart-pulse-icon {
+  fill: var(--primary-color);
+  animation: heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.2); }
+  70% { transform: scale(1); }
+}

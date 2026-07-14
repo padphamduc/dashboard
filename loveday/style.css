@@ -1,0 +1,415 @@
+/* ==========================================================================
+   Variables & Theme
+   ========================================================================== */
+:root {
+    --bg-dark: #0a080d;
+    --bg-card: rgba(22, 16, 30, 0.7);
+    --border-color: rgba(255, 255, 255, 0.08);
+    
+    --rose: #ff4e50;
+    --rose-glow: rgba(255, 78, 80, 0.4);
+    --rose-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    
+    --gold: #ffb400;
+    --gold-glow: rgba(255, 180, 0, 0.4);
+    --gold-gradient: linear-gradient(135deg, #ffc837 0%, #ff8008 100%);
+    
+    --text-primary: #f3eff5;
+    --text-secondary: #a79fb4;
+    --text-muted: #6e647c;
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Heart particles canvas */
+#heart-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Loveday Main Layout
+   ========================================================================== */
+.loveday-container {
+    width: 90%;
+    max-width: 580px;
+    padding: 20px;
+    z-index: 10;
+}
+
+.loveday-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 45px 35px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 78, 80, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Card Header */
+.love-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2rem;
+    font-weight: 400;
+    background: var(--rose-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+}
+
+.divider-heart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.pulse-heart {
+    color: var(--rose);
+    width: 22px;
+    height: 22px;
+    fill: var(--rose);
+    filter: drop-shadow(0 0 8px var(--rose-glow));
+    animation: heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    70% { transform: scale(1); }
+}
+
+/* Couple profiles */
+.couple-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--rose-gradient);
+    padding: 3px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 15px var(--rose-glow);
+    transition: transform 0.4s ease;
+}
+
+.avatar-ring:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #16101e;
+    background: #16101e;
+}
+
+.profile-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* Link Heart in between */
+.love-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-pulse-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 78, 80, 0.08);
+    border: 1px solid rgba(255, 78, 80, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(255, 78, 80, 0.05);
+}
+
+.glow-heart {
+    color: var(--rose);
+    width: 24px;
+    height: 24px;
+    fill: var(--rose);
+    filter: drop-shadow(0 0 8px var(--rose-glow));
+    animation: heartbeat-glow 1.4s infinite;
+}
+
+@keyframes heartbeat-glow {
+    0% { transform: scale(1); filter: drop-shadow(0 0 8px var(--rose-glow)); }
+    14% { transform: scale(1.2); filter: drop-shadow(0 0 15px var(--rose)); }
+    28% { transform: scale(1); filter: drop-shadow(0 0 8px var(--rose-glow)); }
+    42% { transform: scale(1.2); filter: drop-shadow(0 0 15px var(--rose)); }
+    70% { transform: scale(1); filter: drop-shadow(0 0 8px var(--rose-glow)); }
+}
+
+/* Big Days Counter */
+.days-counter-section {
+    margin-bottom: 35px;
+}
+
+.counter-ring {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background: linear-gradient(#16101e, #16101e) padding-box,
+                var(--rose-gradient) border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(255, 78, 80, 0.1);
+}
+
+.days-count {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    text-shadow: 0 0 15px rgba(255, 78, 80, 0.3);
+}
+
+.days-label {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* Time Grid Details */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 15px 5px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.time-box:hover {
+    background: rgba(255, 78, 80, 0.02);
+    border-color: rgba(255, 78, 80, 0.15);
+}
+
+.time-val {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: monospace;
+}
+
+.time-lbl {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* Card Footer */
+.love-quote {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.back-home-btn i {
+    width: 14px;
+    height: 14px;
+}
+
+.back-home-btn:hover {
+    background: var(--rose-gradient);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px var(--rose-glow);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+@media (max-width: 576px) {
+    .loveday-card {
+        padding: 30px 20px;
+    }
+    
+    .love-title {
+        font-size: 1.9rem;
+    }
+    
+    .avatar-ring {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .profile-name {
+        font-size: 0.95rem;
+    }
+    
+    .heart-pulse-box {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .glow-heart {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .counter-ring {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .days-count {
+        font-size: 2.8rem;
+    }
+    
+    .time-val {
+        font-size: 1.25rem;
+    }
+    
+    .time-lbl {
+        font-size: 0.6rem;
+    }
+}
+
+/* Floating Music Toggle Button */
+.music-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.music-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
+}
+
+.music-toggle-btn i {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.music-toggle-btn.playing i {
+    animation: rotateMusic 3s linear infinite;
+    color: #ff4e50;
+    filter: drop-shadow(0 0 5px rgba(255, 78, 80, 0.5));
+}
+
+@keyframes rotateMusic {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    .music-toggle-btn {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+    }
+    .music-toggle-btn i {
+        width: 16px;
+        height: 16px;
+    }
+}

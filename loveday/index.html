@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phạm Anh Đức ♥ Mai Anh - Loveday Counter</title>
+    
+    <!-- Google Fonts: Pacifico & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Canvas for floating romantic heart particles -->
+    <canvas id="heart-canvas"></canvas>
+    
+    <div class="loveday-container">
+        
+        <!-- Main Glass Card -->
+        <main class="loveday-card">
+            
+            <!-- Header title -->
+            <header class="card-header">
+                <h1 class="love-title">Love Journey</h1>
+                <div class="divider-heart">
+                    <i data-lucide="heart" class="pulse-heart"></i>
+                </div>
+            </header>
+            
+            <!-- Couple Section -->
+            <section class="couple-section">
+                <!-- Person 1: Phạm Anh Đức -->
+                <div class="profile">
+                    <div class="avatar-ring">
+                        <img src="../assets/images/avatar.png" alt="Phạm Anh Đức" class="avatar-img" id="loveday-avatar-user" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=Duc'">
+                    </div>
+                    <h2 class="profile-name" id="loveday-name-user">Anh Đức</h2>
+                </div>
+                
+                <!-- Heart Icon linking them -->
+                <div class="love-link">
+                    <div class="heart-pulse-box">
+                        <i data-lucide="heart" class="glow-heart"></i>
+                    </div>
+                </div>
+                
+                <!-- Person 2: Mai Anh -->
+                <div class="profile">
+                    <div class="avatar-ring">
+                        <img src="../assets/images/manh.png" alt="Mai Anh" class="avatar-img" id="loveday-avatar-gf" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=MaiAnh'">
+                    </div>
+                    <h2 class="profile-name" id="loveday-name-gf">Mai Anh</h2>
+                </div>
+            </section>
+            
+            <!-- Big Days Counter Section -->
+            <section class="days-counter-section">
+                <div class="counter-ring">
+                    <span class="days-count" id="days-count">0</span>
+                    <span class="days-label">Ngày Bên Nhau</span>
+                </div>
+            </section>
+            
+            <!-- Time Detail Grid (Days, Hours, Minutes, Seconds) -->
+            <section class="time-grid">
+                <div class="time-box">
+                    <span class="time-val" id="val-days">00</span>
+                    <span class="time-lbl">Ngày</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="val-hours">00</span>
+                    <span class="time-lbl">Giờ</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="val-minutes">00</span>
+                    <span class="time-lbl">Phút</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="val-seconds">00</span>
+                    <span class="time-lbl">Giây</span>
+                </div>
+            </section>
+            
+            <!-- Footer Quote & Back link -->
+            <footer class="card-footer">
+                <p class="love-quote" id="loveday-quote">"Em là lý do khiến mỗi ngày của anh trở nên ngọt ngào và ý nghĩa hơn."</p>
+                <div class="nav-links">
+                    <a href="../index.html" class="back-home-btn">
+                        <i data-lucide="arrow-left"></i>
+                        <span>Về trang chủ</span>
+                    </a>
+                </div>
+            </footer>
+            
+        </main>
+        
+    </div>
+
+    <!-- Floating Music Button & Audio -->
+    <button id="music-toggle-btn" class="music-toggle-btn" title="Phát/Tạm dừng nhạc">
+        <i data-lucide="music"></i>
+    </button>
+    <audio id="bg-music" src="maianh.mp3" loop></audio>
+
+    <!-- Script -->
+    <script src="../assets/js/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

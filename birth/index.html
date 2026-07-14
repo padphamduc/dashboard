@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật Mai Anh! 💖</title>
+    <meta name="description" content="Trang web chúc mừng sinh nhật ngập tràn yêu thương và những lời chúc ngọt ngào nhất dành riêng cho bạn!">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js for 3D Birthday Cake -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="birth.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control Button -->
+    <button id="music-toggle" class="music-btn hidden" aria-label="Toggle music">
+        <div class="music-wave">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Canvas for Confetti & Balloons -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- 0. INTRO SCREEN (Typewriter, Hat, Date, Photo & Start Button Reveal) -->
+    <div id="intro-screen" class="intro-container">
+        <div class="intro-card" style="min-height: 480px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 30px;">
+            <div class="intro-title-wrapper" style="display: flex; align-items: center; justify-content: center; min-height: 80px; margin-bottom: 10px;">
+                <h1 id="intro-title-text" class="intro-writing-text"></h1>
+                <div id="party-hat" class="party-hat"></div>
+            </div>
+            
+            <div id="intro-date" class="intro-date hidden-intro-el">🎂 15/07/2007</div>
+            
+            <div id="intro-photo" class="intro-photo hidden-intro-el">
+                <img src="../assets/images/manh.png" alt="Mai Anh" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=MaiAnh'">
+            </div>
+            
+            <button id="open-btn" class="btn btn-glow hidden-intro-el">Bắt Đầu ✨</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT APP -->
+    <div id="main-content" class="app-container hidden">
+        
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="header-glow"></div>
+            <h2 class="animate-text-glow">Happy Birthday!</h2>
+            <h3 class="birthday-name">Chúc Mừng Sinh Nhật Mai Anh! 🎉</h3>
+            <p class="header-date">📅 15 Tháng 7</p>
+        </header>
+
+        <!-- BƯỚC 1: GHI ĐIỀU ƯỚC -->
+        <div id="step-1" class="step-wrapper active-step">
+            <section class="section-container">
+                <div class="section-card">
+                    <h4 class="section-title"><i class="fas fa-magic"></i>Hãy Ghi Ước Nguyện Của Bạn Để Tôi Thực Hiện</h4>
+                    <p class="section-desc">Bất Kì Ước Nguyện Gì Bạn Có Thể Ghi Vào Đây</p>
+                    
+                    <div class="wish-form-wrapper">
+                        <form id="wish-form" class="wish-form">
+                            <div class="form-group border-glow-container">
+                                <input type="text" id="wish-input" placeholder="Viết điều ước của bạn tại đây" required maxlength="100">
+                                <div class="border-glow-line"></div>
+                            </div>
+                            <button type="submit" class="btn btn-glow"><i class="fas fa-paper-plane"></i> Gửi Điều Ước</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- BƯỚC 2: THỔI NẾN (Bánh sinh nhật 3D quay quay & 1 Nến) -->
+        <div id="step-2" class="step-wrapper hidden-step">
+            <section class="section-container" id="cake-section">
+                <div class="section-card cake-card">
+                    <h4 class="section-title"><i class="fas fa-birthday-cake"></i>Thổi Nến Ước Nguyện 3D</h4>
+                    <p class="section-desc">Nhắm mắt lại, nghĩ về điều ước bạn vừa viết. Kéo để xoay bánh 3D và chạm/click lên bánh để thổi nến nhé!</p>
+                    
+                    <div class="cake-3d-container-wrapper" style="position: relative; width: 100%; max-width: 400px; height: 350px; margin: 15px auto 25px; display: flex; justify-content: center; align-items: center; border-radius: 16px; background: rgba(255, 255, 255, 0.02); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden; cursor: grab;">
+                        <div id="cake-3d-canvas" style="width: 100%; height: 100%;"></div>
+                        <div class="cake-3d-hint" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); pointer-events: none; white-space: nowrap;"><i class="fas fa-hand-pointer"></i> Kéo xoay bánh | Chạm để thổi nến</div>
+                    </div>
+ 
+                    <div id="cake-message" class="cake-message hidden">
+                        <p class="wish-prompt">✨ Nến đã tắt! Điều ước của bạn đang bay lên bầu trời sao... ✨</p>
+                        <button id="go-to-letter" class="btn btn-primary" style="display:none;"><i class="fas fa-envelope-open-text"></i> Mở Thư Chúc Mừng 💌</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- BƯỚC 3: ĐỌC THƯ CHÚC MỪNG (Envelope & Wax Seal) -->
+        <div id="step-3" class="step-wrapper hidden-step">
+            <section class="section-container" id="letter-section">
+                <div class="section-card letter-card-bg">
+                    <h4 class="section-title"><i class="fas fa-envelope"></i> Bức Thư Từ Trái Tim</h4>
+                    <p class="section-desc">Nhấp vào khóa tym màu vàng để mở bức thư bí mật dành riêng cho bạn</p>
+                    
+                    <div class="envelope-wrapper">
+                        <div class="envelope" id="envelope">
+                            <div class="envelope-front"></div>
+                            <div class="envelope-top"></div>
+                            <div class="envelope-letter" id="envelope-letter">
+                                <div class="letter-text">
+                                    <p class="letter-salutation">Gửi Mai Anh người anh yêu💖</p>
+                                    <div class="letter-body">
+                                        <p id="typing-text-1">Hôm nay là một ngày vô cùng đặc biệt - ngày mà em bước sang tuổi mới với nhiều niềm vui và hoài bão lớn.</p>
+                                        <p id="typing-text-2">Chúc em luôn rạng rỡ như ánh nắng ban mai, rực rỡ như những đóa hồng và luôn kiên cường hạnh phúc trong cuộc đời.</p>
+                                        <p id="typing-text-3">Hy vọng tuổi mới sẽ mang đến cho em những cơ hội mới, thành công rực rỡ và những khoảnh khắc đáng nhớ nhất.</p>
+                                        <p id="typing-text-4">Mong rằng mọi sinh nhật sau này, anh vẫn luôn được ở bên cạnh em. Anh yêu em💗</p>
+                                    </div>
+                                    <div class="letter-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; border-top: 1px dashed rgba(179, 57, 81, 0.15); padding-top: 10px;">
+                                        <p class="letter-signature" style="margin: 0; text-align: left; line-height: 1.2;">Người gửi , <br><span class="signature-name">Phạm Anh Đức</span></p>
+                                        <div class="read-completion-wrapper text-center" id="read-completion-container">
+                                            <button id="go-to-gallery" class="btn btn-glow" style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; margin-bottom: 2px;"><i class="fas fa-images"></i> Xem Kỉ Niệm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Gold Wax Seal -->
+                            <div class="wax-seal" id="wax-seal">
+                                <div class="seal-inner"><i class="fas fa-heart"></i></div>
+                            </div>
+                        </div>
+                        <div class="envelope-prompt" id="envelope-prompt-text">Nhấp vào trái tim vàng để mở.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- BƯỚC 4: KHOẢNH KHẮC KỶ NIỆM (Gallery & Fairy Lights) -->
+        <div id="step-4" class="step-wrapper hidden-step">
+            <section class="section-container" id="gallery-section">
+                <div class="section-card">
+                    <!-- Fairy Lights overlay -->
+                    <div class="fairy-lights-container">
+                        <ul class="fairy-lights">
+                            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+                        </ul>
+                    </div>
+                    
+                    <h4 class="section-title" style="margin-top: 15px;"><i class="fas fa-images"></i>Xem Lại 1 Năm</h4>
+                    <p class="section-desc">Những bước chân em đi qua, từng nụ cười sẽ lưu giữ lại</p>
+                    
+                    <div class="gallery-slider">
+                        <div class="slides-container" id="slides-container">
+                            <!-- Photo 1 -->
+                            <div class="polaroid-card">
+                                <div class="tape-effect"></div>
+                                <div class="polaroid-img-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=600" alt="Birthday Celebration">
+                                </div>
+                                <div class="polaroid-caption">Ngày đặc biệt của Mai Anh 🎂</div>
+                            </div>
+                            <!-- Photo 2 -->
+                            <div class="polaroid-card">
+                                <div class="tape-effect"></div>
+                                <div class="polaroid-img-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=600" alt="Sweet Moments">
+                                </div>
+                                <div class="polaroid-caption">Những nụ cười rạng rỡ Nhất✨</div>
+                            </div>
+                            <!-- Photo 3 -->
+                            <div class="polaroid-card">
+                                <div class="tape-effect"></div>
+                                <div class="polaroid-img-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&q=80&w=600" alt="Flowers & Joy">
+                                </div>
+                                <div class="polaroid-caption">Ngập tràn hoa và niềm vui 🌸</div>
+                            </div>
+                            <!-- Photo 4 -->
+                            <div class="polaroid-card">
+                                <div class="tape-effect"></div>
+                                <div class="polaroid-img-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=600" alt="Balloons">
+                                </div>
+                                <div class="polaroid-caption">Ước mơ bay thật cao 🎈</div>
+                            </div>
+                        </div>
+
+                        <!-- Gallery Navigation Controls -->
+                        <button class="slider-control prev" id="slider-prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-control next" id="slider-next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>padphamduc | &copy; 2026</p>
+            </footer>
+        </div>
+
+    </div>
+
+    <!-- Custom Script -->
+    <script src="../assets/js/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
