@@ -114,13 +114,14 @@ const heartBasePositions = new Float32Array(HEART_COUNT * 3);
 const heartRandomPhase = new Float32Array(HEART_COUNT);
 const heartEdgeFactors = new Float32Array(HEART_COUNT);
 
-// Bảng màu hồng đậm đà, tươi thắm & rực rỡ
+// Bảng màu thuần tone hồng rực rỡ & ngọt ngào (Pure Pink Palette)
 const heartPalette = [
-    new THREE.Color(0xff3385), // hồng nồng thắm
-    new THREE.Color(0xff4d94), // hồng tươi rực rỡ
-    new THREE.Color(0xff66b2), // hồng phấn tươi
-    new THREE.Color(0xff80bf), // hồng ngọc
-    new THREE.Color(0xff1a75), // hồng đậm quyến rũ
+    new THREE.Color(0xff1a75), // Hồng thắm rực rỡ
+    new THREE.Color(0xff3399), // Hồng tươi ngọt ngào
+    new THREE.Color(0xff4d94), // Hồng đào lấp lánh
+    new THREE.Color(0xff66b2), // Hồng phấn tươi
+    new THREE.Color(0xff80bf), // Hồng ngọc trai
+    new THREE.Color(0xff99cc), // Hồng pastel mượt mà
 ];
 
 for (let i = 0; i < HEART_COUNT; i++) {
@@ -141,24 +142,23 @@ for (let i = 0; i < HEART_COUNT; i++) {
     heartRandomPhase[i] = Math.random() * Math.PI * 2;
     heartEdgeFactors[i] = p.edgeFactor;
 
-    // Chọn màu: viền ngoài màu hồng tươi rực rỡ, bên trong đậm đà rõ nét
+    // Phối màu hạt thuần hồng ngọt ngào & đậm đà
     let color;
     if (p.edgeFactor > 0.78) {
-        // Viền ngoài - màu hồng tươi ngọt ngào & rõ nét
-        color = Math.random() > 0.4 ? new THREE.Color(0xff1a75) : new THREE.Color(0xff3385);
-        color.multiplyScalar(1.5);
-        heartSizes[i] = (0.12 + Math.random() * 0.14) * 1.5;
+        // Viền ngoài - Hạt hồng rực rỡ ngọt ngào & rõ nét
+        color = heartPalette[Math.floor(Math.random() * 3)].clone(); // Tone hồng đậm & tươi ở viền
+        color.multiplyScalar(1.7);
+        heartSizes[i] = (0.13 + Math.random() * 0.15) * 1.55;
     } else if (p.edgeFactor > 0.45) {
-        const pick = Math.random();
-        color = pick < 0.4 ? heartPalette[0].clone() : (pick < 0.75 ? heartPalette[1].clone() : heartPalette[4].clone());
-        color.multiplyScalar(1.25);
-        heartSizes[i] = (0.08 + Math.random() * 0.09) * 1.1;
+        // Lớp giữa - Các dải màu hồng chuyển tiếp dịu ngọt
+        color = heartPalette[Math.floor(Math.random() * heartPalette.length)].clone();
+        color.multiplyScalar(1.35);
+        heartSizes[i] = (0.09 + Math.random() * 0.10) * 1.2;
     } else {
-        // Tâm bên trong - hồng đậm nét, không mờ nhạt
-        const pick = Math.random();
-        color = pick < 0.15 ? heartPalette[3].clone() : (pick < 0.55 ? heartPalette[0].clone() : heartPalette[1].clone());
-        color.multiplyScalar(1.0);
-        heartSizes[i] = (0.07 + Math.random() * 0.08) * 1.0;
+        // Tâm bên trong - Hồng đậm đà & sáng rõ
+        color = heartPalette[Math.floor(Math.random() * 4)].clone();
+        color.multiplyScalar(1.15);
+        heartSizes[i] = (0.08 + Math.random() * 0.08) * 1.1;
     }
 
     heartColors[i * 3] = color.r;
@@ -187,8 +187,8 @@ const heartParticleFragmentShader = `
     void main() {
         vec2 center = gl_PointCoord - vec2(0.5);
         float dist = length(center);
-        float alpha = smoothstep(0.5, 0.02, dist) * 0.85;
-        float core = smoothstep(0.25, 0.0, dist) * 0.45;
+        float alpha = smoothstep(0.5, 0.01, dist) * 0.95;
+        float core = smoothstep(0.25, 0.0, dist) * 0.55;
         vec3 finalColor = vColor + vec3(core);
         gl_FragColor = vec4(finalColor, alpha);
     }
