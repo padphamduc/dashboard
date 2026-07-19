@@ -6,8 +6,8 @@ const CONFIG = {
     username: "@love_for_you",
     message: "",
     showMessageBox: false,
-    heartParticleCount: 22000,
-    starCount: 1200,
+    heartParticleCount: 16000,
+    starCount: 1000,
     heartColor: "#ff69c9",
     rotationSpeed: 0.0015,
     enableMusic: true
@@ -19,8 +19,8 @@ const CONFIG = {
 const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 768;
 const isLowEnd = isMobile && (navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : true);
 
-// Tỷ lệ hạt vừa phải, thanh thoát, mượt mà & nhẹ nhàng
-const PARTICLE_SCALE = isLowEnd ? 0.45 : (isMobile ? 0.55 : 0.65);
+// Tỷ lệ hạt thưa nhẹ, thanh thoát, tinh tế & mượt mà
+const PARTICLE_SCALE = isLowEnd ? 0.35 : (isMobile ? 0.42 : 0.50);
 const HEART_COUNT = Math.floor(CONFIG.heartParticleCount * PARTICLE_SCALE);
 const STAR_COUNT = Math.floor(CONFIG.starCount * (isMobile ? 0.8 : 1.0));
 const RING_TEXT_COUNT_MULTIPLIER = isLowEnd ? 0.6 : 1.0;
@@ -103,8 +103,8 @@ function samplePointInHeart() {
 // ============================================================
 // TẠO NHÓM HẠT TRÁI TIM (PARTICLE HEART)
 // ============================================================
-const HEART_SCALE = 0.15;
-const HEART_Y_OFFSET = 1.0; // Đưa vị trí trái tim và góc nhìn vừa vặn cân đối
+const HEART_SCALE = 0.19;
+const HEART_Y_OFFSET = 1.05; // Đưa vị trí trái tim và góc nhìn vừa vặn cân đối
 
 const heartGeometry = new THREE.BufferGeometry();
 const heartPositions = new Float32Array(HEART_COUNT * 3);
@@ -252,7 +252,7 @@ const centerNameMaterial = new THREE.SpriteMaterial({
     blending: THREE.AdditiveBlending
 });
 const centerNameSprite = new THREE.Sprite(centerNameMaterial);
-const centerNameHeight = 0.53;
+const centerNameHeight = 0.66;
 centerNameSprite.scale.set(centerNameHeight * centerNameData.aspect, centerNameHeight, 1);
 centerNameSprite.position.set(0, HEART_Y_OFFSET, 0.1); // Nằm ở tâm trái tim
 heartGroup.add(centerNameSprite);
