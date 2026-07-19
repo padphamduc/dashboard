@@ -36,7 +36,7 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000005, 0.045); // Sương mù nhẹ tạo chiều sâu
 
 const camera = new THREE.PerspectiveCamera(
-    60,
+    55,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
@@ -679,25 +679,25 @@ function onWindowResize() {
         composer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    // Điều chỉnh camera vừa vặn hoàn hảo & đưa góc nhìn về 60° chuẩn ban đầu
+    // Điều chỉnh camera vừa vặn hoàn hảo & đưa góc nhìn về 55°
     const aspect = window.innerWidth / window.innerHeight;
     if (aspect < 0.65) {
-        // Điện thoại di động (Màn hình dọc) - Góc quan sát 60°
+        // Điện thoại di động (Màn hình dọc) - Góc quan sát 55°
         camera.position.y = 1.0;
         camera.position.z = 13.0;
-        camera.fov = 60;
+        camera.fov = 55;
         camera.lookAt(0, 1.0, 0);
     } else if (aspect < 0.85) {
         // Máy tính bảng
         camera.position.y = 1.05;
         camera.position.z = 11.0;
-        camera.fov = 60;
+        camera.fov = 55;
         camera.lookAt(0, 1.05, 0);
     } else {
         // Máy tính để bàn
         camera.position.y = 1.1;
         camera.position.z = 10.0;
-        camera.fov = 60;
+        camera.fov = 55;
         camera.lookAt(0, 1.1, 0);
     }
     camera.updateProjectionMatrix();
