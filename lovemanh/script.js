@@ -7,7 +7,7 @@ const CONFIG = {
     message: "",
     showMessageBox: false,
     heartParticleCount: 22000,
-    starCount: 1000,
+    starCount: 1200,
     heartColor: "#ff69c9",
     rotationSpeed: 0.0015,
     enableMusic: true
@@ -19,8 +19,8 @@ const CONFIG = {
 const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 768;
 const isLowEnd = isMobile && (navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : true);
 
-// Giảm số lượng hạt nếu thiết bị yếu / màn hình nhỏ
-const PARTICLE_SCALE = isLowEnd ? 0.45 : (isMobile ? 0.7 : 1.0);
+// Tỷ lệ hạt vừa phải, thanh thoát, mượt mà & nhẹ nhàng
+const PARTICLE_SCALE = isLowEnd ? 0.45 : (isMobile ? 0.55 : 0.65);
 const HEART_COUNT = Math.floor(CONFIG.heartParticleCount * PARTICLE_SCALE);
 const STAR_COUNT = Math.floor(CONFIG.starCount * (isMobile ? 0.8 : 1.0));
 const RING_TEXT_COUNT_MULTIPLIER = isLowEnd ? 0.6 : 1.0;
@@ -36,7 +36,7 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000005, 0.045); // Sương mù nhẹ tạo chiều sâu
 
 const camera = new THREE.PerspectiveCamera(
-    60,
+    75,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
@@ -103,8 +103,8 @@ function samplePointInHeart() {
 // ============================================================
 // TẠO NHÓM HẠT TRÁI TIM (PARTICLE HEART)
 // ============================================================
-const HEART_SCALE = 0.24;
-const HEART_Y_OFFSET = 1.25; // Đưa vị trí trái tim và góc nhìn lên cao hơn
+const HEART_SCALE = 0.15;
+const HEART_Y_OFFSET = 1.0; // Đưa vị trí trái tim và góc nhìn vừa vặn cân đối
 
 const heartGeometry = new THREE.BufferGeometry();
 const heartPositions = new Float32Array(HEART_COUNT * 3);
@@ -114,13 +114,13 @@ const heartBasePositions = new Float32Array(HEART_COUNT * 3);
 const heartRandomPhase = new Float32Array(HEART_COUNT);
 const heartEdgeFactors = new Float32Array(HEART_COUNT);
 
-// Bảng màu hồng nhẹ dịu: hồng phấn, hồng đào nhạt, hồng ngọc trai, hồng pastel
+// Bảng màu hồng đậm đà, tươi thắm & rực rỡ
 const heartPalette = [
-    new THREE.Color(0xffcce3), // hồng phấn nhẹ
-    new THREE.Color(0xffd9eb), // hồng đào nhạt
-    new THREE.Color(0xfff0f7), // hồng ngọc trai
-    new THREE.Color(0xffe4f1), // hồng pastel nhạt
-    new THREE.Color(0xffb8d9), // hồng san hô nhẹ
+    new THREE.Color(0xff3385), // hồng nồng thắm
+    new THREE.Color(0xff4d94), // hồng tươi rực rỡ
+    new THREE.Color(0xff66b2), // hồng phấn tươi
+    new THREE.Color(0xff80bf), // hồng ngọc
+    new THREE.Color(0xff1a75), // hồng đậm quyến rũ
 ];
 
 for (let i = 0; i < HEART_COUNT; i++) {
@@ -141,23 +141,24 @@ for (let i = 0; i < HEART_COUNT; i++) {
     heartRandomPhase[i] = Math.random() * Math.PI * 2;
     heartEdgeFactors[i] = p.edgeFactor;
 
-    // Chọn màu: viền ngoài màu hồng tươi rực rỡ, bên trong hồng nhẹ dịu mờ
+    // Chọn màu: viền ngoài màu hồng tươi rực rỡ, bên trong đậm đà rõ nét
     let color;
     if (p.edgeFactor > 0.78) {
         // Viền ngoài - màu hồng tươi ngọt ngào & rõ nét
-        color = Math.random() > 0.4 ? new THREE.Color(0xff66b2) : new THREE.Color(0xff80bf);
-        color.multiplyScalar(1.3);
-        heartSizes[i] = (0.11 + Math.random() * 0.12) * 1.45;
+        color = Math.random() > 0.4 ? new THREE.Color(0xff1a75) : new THREE.Color(0xff3385);
+        color.multiplyScalar(1.5);
+        heartSizes[i] = (0.12 + Math.random() * 0.14) * 1.5;
     } else if (p.edgeFactor > 0.45) {
         const pick = Math.random();
         color = pick < 0.4 ? heartPalette[0].clone() : (pick < 0.75 ? heartPalette[1].clone() : heartPalette[4].clone());
-        heartSizes[i] = (0.07 + Math.random() * 0.08) * 0.95;
+        color.multiplyScalar(1.25);
+        heartSizes[i] = (0.08 + Math.random() * 0.09) * 1.1;
     } else {
-        // Tâm bên trong - hồng nhẹ dịu mờ
+        // Tâm bên trong - hồng đậm nét, không mờ nhạt
         const pick = Math.random();
         color = pick < 0.15 ? heartPalette[3].clone() : (pick < 0.55 ? heartPalette[0].clone() : heartPalette[1].clone());
-        color.multiplyScalar(0.7);
-        heartSizes[i] = (0.06 + Math.random() * 0.07) * 0.85;
+        color.multiplyScalar(1.0);
+        heartSizes[i] = (0.07 + Math.random() * 0.08) * 1.0;
     }
 
     heartColors[i * 3] = color.r;
@@ -169,7 +170,7 @@ heartGeometry.setAttribute('position', new THREE.BufferAttribute(heartPositions,
 heartGeometry.setAttribute('color', new THREE.BufferAttribute(heartColors, 3));
 heartGeometry.setAttribute('size', new THREE.BufferAttribute(heartSizes, 1));
 
-// Shader tùy chỉnh: điều chỉnh alpha nhạt lại 1 tí cho cảm giác nhẹ nhàng, dịu mờ
+// Shader tùy chỉnh: độ hiển thị alpha & lõi phát sáng rực rỡ, rõ nét
 const heartParticleVertexShader = `
     attribute float size;
     varying vec3 vColor;
@@ -186,8 +187,8 @@ const heartParticleFragmentShader = `
     void main() {
         vec2 center = gl_PointCoord - vec2(0.5);
         float dist = length(center);
-        float alpha = smoothstep(0.5, 0.05, dist) * 0.55;
-        float core = smoothstep(0.25, 0.0, dist) * 0.25;
+        float alpha = smoothstep(0.5, 0.02, dist) * 0.85;
+        float core = smoothstep(0.25, 0.0, dist) * 0.45;
         vec3 finalColor = vColor + vec3(core);
         gl_FragColor = vec4(finalColor, alpha);
     }
@@ -251,7 +252,7 @@ const centerNameMaterial = new THREE.SpriteMaterial({
     blending: THREE.AdditiveBlending
 });
 const centerNameSprite = new THREE.Sprite(centerNameMaterial);
-const centerNameHeight = 0.85;
+const centerNameHeight = 0.53;
 centerNameSprite.scale.set(centerNameHeight * centerNameData.aspect, centerNameHeight, 1);
 centerNameSprite.position.set(0, HEART_Y_OFFSET, 0.1); // Nằm ở tâm trái tim
 heartGroup.add(centerNameSprite);
@@ -307,13 +308,13 @@ const textColors = ["#ffffff", "#ffd6ee", "#ffe0f0", "#ffb8e0"];
 
 // Số vòng đồng tâm và số item mỗi vòng
 const RING_LAYERS = [
-    { radius: 3.0, count: Math.floor(10 * RING_TEXT_COUNT_MULTIPLIER), scale: 1.0, opacity: 1.0, speed: 1.0, yJitter: 0.15 },
-    { radius: 4.1, count: Math.floor(13 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.75, opacity: 0.75, speed: -0.7, yJitter: 0.25 },
-    { radius: 5.2, count: Math.floor(15 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.55, opacity: 0.5, speed: 0.5, yJitter: 0.35 },
+    { radius: 2.0, count: Math.floor(10 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.75, opacity: 1.0, speed: 1.0, yJitter: 0.15 },
+    { radius: 2.7, count: Math.floor(13 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.55, opacity: 0.75, speed: -0.7, yJitter: 0.25 },
+    { radius: 3.4, count: Math.floor(15 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.42, opacity: 0.5, speed: 0.5, yJitter: 0.35 },
 ];
 
 const ringGroup = new THREE.Group();
-ringGroup.position.y = -1.6; // Vị trí đĩa chữ bên dưới trái tim
+ringGroup.position.y = -1.1; // Vị trí đĩa chữ bên dưới trái tim
 const ringSprites = []; // Lưu để animate
 
 let wordPool = [...ringWords, ...ringEmojis, ...ringEmojis]; // Nhân đôi emoji để rải đều hơn
@@ -678,26 +679,26 @@ function onWindowResize() {
         composer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    // Điều chỉnh camera vừa vặn hoàn hảo cho từng loại màn hình (đặc biệt là điện thoại)
+    // Điều chỉnh camera vừa vặn hoàn hảo & mở rộng tối đa góc nhìn 75° cho từng loại màn hình
     const aspect = window.innerWidth / window.innerHeight;
     if (aspect < 0.65) {
-        // Điện thoại di động (Màn hình dọc)
+        // Điện thoại di động (Màn hình dọc) - Góc nhìn rộng 75° sắc nét, bao quát 3D
         camera.position.y = 1.0;
-        camera.position.z = 11.2;
-        camera.fov = 64;
+        camera.position.z = 12.5;
+        camera.fov = 75;
         camera.lookAt(0, 1.0, 0);
     } else if (aspect < 0.85) {
         // Máy tính bảng
-        camera.position.y = 1.15;
-        camera.position.z = 10.2;
-        camera.fov = 60;
-        camera.lookAt(0, 1.15, 0);
+        camera.position.y = 1.05;
+        camera.position.z = 10.5;
+        camera.fov = 72;
+        camera.lookAt(0, 1.05, 0);
     } else {
         // Máy tính để bàn
-        camera.position.y = 1.25;
+        camera.position.y = 1.1;
         camera.position.z = 9.5;
-        camera.fov = 60;
-        camera.lookAt(0, 1.25, 0);
+        camera.fov = 72;
+        camera.lookAt(0, 1.1, 0);
     }
     camera.updateProjectionMatrix();
 }
