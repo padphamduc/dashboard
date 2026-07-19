@@ -1,0 +1,197 @@
+/* ==== RESET & CƠ BẢN ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Không có thanh cuộn */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000005; /* Nền đen sâu giống không gian */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ==== CANVAS TOÀN MÀN HÌNH ==== */
+#heart-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  outline: none;
+  touch-action: none; /* Cho phép vuốt xoay mượt mà trên điện thoại */
+}
+
+/* Nút phát nhạc trên mobile */
+#music-btn {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  #music-btn {
+    bottom: 24px !important;
+    right: 20px !important;
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 22px !important;
+  }
+}
+
+/* ==== LỚP OVERLAY UI ==== */
+#ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Chỉ phần tử con mới bắt sự kiện */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 10;
+}
+
+/* ==== KHUNG TIN NHẮN TRANG TRÍ ==== */
+#message-box {
+  pointer-events: auto;
+  width: auto;
+  max-width: 90%;
+  margin-bottom: env(safe-area-inset-bottom, 24px);
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#message-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.chat-bubble {
+  align-self: center;
+  margin: 0 auto;
+  text-align: center;
+  background: transparent;
+  color: #ffffff;
+  font-size: 18.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  padding: 8px 16px;
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 0 12px rgba(255, 105, 180, 0.9), 0 0 25px rgba(255, 105, 180, 0.6), 0 0 40px rgba(255, 182, 193, 0.4);
+  animation: textGlow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from { text-shadow: 0 0 12px rgba(255, 105, 180, 0.8), 0 0 25px rgba(255, 105, 180, 0.5); }
+  to   { text-shadow: 0 0 18px rgba(255, 150, 220, 1), 0 0 35px rgba(255, 105, 180, 0.8), 0 0 50px rgba(255, 182, 193, 0.6); }
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
+  padding: 8px 10px 8px 14px;
+}
+
+#fake-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgba(255, 240, 250, 0.8);
+  font-size: 14px;
+  caret-color: transparent;
+}
+
+#fake-input::placeholder {
+  color: rgba(255, 220, 240, 0.4);
+}
+
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: default;
+  user-select: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.icon-btn:active {
+  transform: scale(0.9);
+  background: rgba(255, 180, 220, 0.25);
+}
+
+.send-icon {
+  background: linear-gradient(135deg, #c77bf0, #ff8fd0);
+  color: #fff;
+}
+
+/* ==== MÀN HÌNH DỌC NHỎ (ĐIỆN THOẠI) ==== */
+@media (max-width: 480px) {
+  #message-box {
+    width: 94%;
+    padding: 12px 14px 14px 14px;
+    border-radius: 18px;
+  }
+  .chat-bubble {
+    font-size: 13.5px;
+    padding: 10px 15px;
+  }
+  .sender-name {
+    font-size: 11px;
+  }
+}
+
+/* ==== MÀN HÌNH RẤT THẤP (landscape ngắn) ==== */
+@media (max-height: 480px) {
+  #message-box {
+    margin-bottom: 8px;
+    padding: 8px 12px 10px 12px;
+  }
+  .chat-bubble {
+    padding: 8px 12px;
+    font-size: 12.5px;
+  }
+}
+
+/* Ẩn scrollbar hoàn toàn trên mọi trình duyệt */
+::-webkit-scrollbar {
+  display: none;
+}

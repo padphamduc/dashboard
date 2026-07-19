@@ -181,6 +181,7 @@ h1, h2, h3, h4 {
 }
 
 .profile-name {
+<<<<<<< HEAD
     font-family: 'Outfit', sans-serif;
     font-size: 1.8rem;
     font-weight: 800;
@@ -189,6 +190,16 @@ h1, h2, h3, h4 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+=======
+    font-family: 'Cinzel', 'Outfit', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #fff2a3 0%, #d4af37 40%, #aa7c11 80%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+>>>>>>> ed37489 (Upload file)
     margin-bottom: 6px;
     text-transform: uppercase;
 }

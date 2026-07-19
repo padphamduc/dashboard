@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Anh Yêu Em ❤️</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Canvas chứa toàn bộ hiệu ứng 3D -->
+  <canvas id="heart-canvas"></canvas>
+
+  <!-- Lớp overlay UI -->
+  <div id="ui-overlay"></div>
+
+  <!-- Three.js qua CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+  <!-- Thẻ phát nhạc tinhyeu.mp3 -->
+  <audio id="bg-music" loop preload="auto" src="tinhyeu.mp3"></audio>
+
+  <!-- Nút bật/tắt nhạc -->
+  <button id="music-btn" title="Bật/Tắt nhạc" style="position: fixed; bottom: 20px; right: 20px; z-index: 99; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25); color: white; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.2s ease;">🎵</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
