@@ -6,10 +6,10 @@ const CONFIG = {
     username: "@love_for_you",
     message: "",
     showMessageBox: false,
-    heartParticleCount: 16000,
-    starCount: 1000,
+    heartParticleCount: 36000,
+    starCount: 1400,
     heartColor: "#ff69c9",
-    rotationSpeed: 0.0015,
+    rotationSpeed: 0.0007,
     enableMusic: true
 };
 
@@ -19,8 +19,8 @@ const CONFIG = {
 const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 768;
 const isLowEnd = isMobile && (navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : true);
 
-// Tỷ lệ hạt thưa nhẹ, thanh thoát, tinh tế & mượt mà
-const PARTICLE_SCALE = isLowEnd ? 0.35 : (isMobile ? 0.42 : 0.50);
+// Tăng thêm số lượng hạt dày dặn & lung linh xinh xắn
+const PARTICLE_SCALE = isLowEnd ? 0.82 : (isMobile ? 0.95 : 1.0);
 const HEART_COUNT = Math.floor(CONFIG.heartParticleCount * PARTICLE_SCALE);
 const STAR_COUNT = Math.floor(CONFIG.starCount * (isMobile ? 0.8 : 1.0));
 const RING_TEXT_COUNT_MULTIPLIER = isLowEnd ? 0.6 : 1.0;
@@ -66,9 +66,9 @@ if (USE_BLOOM && typeof THREE.EffectComposer !== 'undefined') {
 
     bloomPass = new THREE.UnrealBloomPass(
         new THREE.Vector2(window.innerWidth, window.innerHeight),
-        isMobile ? 0.75 : 0.95, // strength - độ mạnh phát sáng
-        0.55,                    // radius
-        0.18                     // threshold - ngưỡng sáng để bắt đầu bloom
+        isMobile ? 0.75 : 0.88, // strength - phát sáng màu hồng dịu nhẹ mượt mà
+        0.55,                   // radius
+        0.18                    // threshold - ngưỡng sáng để bắt đầu bloom
     );
     composer.addPass(bloomPass);
 }
@@ -114,14 +114,23 @@ const heartBasePositions = new Float32Array(HEART_COUNT * 3);
 const heartRandomPhase = new Float32Array(HEART_COUNT);
 const heartEdgeFactors = new Float32Array(HEART_COUNT);
 
-// Bảng màu thuần tone hồng rực rỡ & ngọt ngào (Pure Pink Palette)
-const heartPalette = [
-    new THREE.Color(0xff1a75), // Hồng thắm rực rỡ
-    new THREE.Color(0xff3399), // Hồng tươi ngọt ngào
-    new THREE.Color(0xff4d94), // Hồng đào lấp lánh
+// Bảng màu phân tầng thuần sắc hồng ngọt ngào (không dùng hạt trắng)
+const outerEdgePalette = [
+    new THREE.Color(0xff1a75), // Hồng tươi dịu thắm
+    new THREE.Color(0xff3399), // Hồng tươi vừa
+    new THREE.Color(0xff4d94), // Hồng đào sắc nét
+];
+
+const middlePalette = [
+    new THREE.Color(0xff66b2), // Hồng phấn mềm
+    new THREE.Color(0xff80bf), // Hồng ngọc nhẹ
+    new THREE.Color(0xff99cc), // Hồng pastel mượt
+];
+
+const innerCorePalette = [
     new THREE.Color(0xff66b2), // Hồng phấn tươi
-    new THREE.Color(0xff80bf), // Hồng ngọc trai
-    new THREE.Color(0xff99cc), // Hồng pastel mượt mà
+    new THREE.Color(0xff80bf), // Hồng ngọc nhẹ
+    new THREE.Color(0xff99cc), // Hồng pastel mượt
 ];
 
 for (let i = 0; i < HEART_COUNT; i++) {
@@ -142,23 +151,23 @@ for (let i = 0; i < HEART_COUNT; i++) {
     heartRandomPhase[i] = Math.random() * Math.PI * 2;
     heartEdgeFactors[i] = p.edgeFactor;
 
-    // Phối màu hạt thuần hồng ngọt ngào & đậm đà
+    // Đậm ở viền ngoài, nhạt dần vào tâm và trong suốt ở vị trí chữ Mai Anh
     let color;
-    if (p.edgeFactor > 0.78) {
-        // Viền ngoài - Hạt hồng rực rỡ ngọt ngào & rõ nét
-        color = heartPalette[Math.floor(Math.random() * 3)].clone(); // Tone hồng đậm & tươi ở viền
-        color.multiplyScalar(1.7);
-        heartSizes[i] = (0.13 + Math.random() * 0.15) * 1.55;
-    } else if (p.edgeFactor > 0.45) {
-        // Lớp giữa - Các dải màu hồng chuyển tiếp dịu ngọt
-        color = heartPalette[Math.floor(Math.random() * heartPalette.length)].clone();
-        color.multiplyScalar(1.35);
-        heartSizes[i] = (0.09 + Math.random() * 0.10) * 1.2;
-    } else {
-        // Tâm bên trong - Hồng đậm đà & sáng rõ
-        color = heartPalette[Math.floor(Math.random() * 4)].clone();
+    if (p.edgeFactor > 0.72) {
+        // Viền ngoài: Màu hồng tươi rực rỡ, hạt lớn rõ nét
+        color = outerEdgePalette[Math.floor(Math.random() * outerEdgePalette.length)].clone();
+        color.multiplyScalar(1.65);
+        heartSizes[i] = (0.10 + Math.random() * 0.12) * 1.35;
+    } else if (p.edgeFactor > 0.40) {
+        // Lớp giữa: Màu hồng phấn dịu mượt
+        color = middlePalette[Math.floor(Math.random() * middlePalette.length)].clone();
         color.multiplyScalar(1.15);
-        heartSizes[i] = (0.08 + Math.random() * 0.08) * 1.1;
+        heartSizes[i] = (0.07 + Math.random() * 0.08) * 1.0;
+    } else {
+        // Tâm bên trong: Hạt siêu nhỏ & nhạt mờ dịu để nhìn cực rõ chữ Mai Anh
+        color = innerCorePalette[Math.floor(Math.random() * innerCorePalette.length)].clone();
+        color.multiplyScalar(0.45); // Nhạt mờ ở tâm
+        heartSizes[i] = (0.04 + Math.random() * 0.04) * 0.65;
     }
 
     heartColors[i * 3] = color.r;
@@ -169,13 +178,17 @@ for (let i = 0; i < HEART_COUNT; i++) {
 heartGeometry.setAttribute('position', new THREE.BufferAttribute(heartPositions, 3));
 heartGeometry.setAttribute('color', new THREE.BufferAttribute(heartColors, 3));
 heartGeometry.setAttribute('size', new THREE.BufferAttribute(heartSizes, 1));
+heartGeometry.setAttribute('edgeFactor', new THREE.BufferAttribute(heartEdgeFactors, 1));
 
-// Shader tùy chỉnh: độ hiển thị alpha & lõi phát sáng rực rỡ, rõ nét
+// Shader tùy chỉnh: độ hiển thị alpha mờ dần vào tâm giúp chữ Mai Anh luôn rõ nét
 const heartParticleVertexShader = `
     attribute float size;
+    attribute float edgeFactor;
     varying vec3 vColor;
+    varying float vEdgeFactor;
     void main() {
         vColor = color;
+        vEdgeFactor = edgeFactor;
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
         gl_PointSize = size * (300.0 / -mvPosition.z);
         gl_Position = projectionMatrix * mvPosition;
@@ -184,12 +197,15 @@ const heartParticleVertexShader = `
 
 const heartParticleFragmentShader = `
     varying vec3 vColor;
+    varying float vEdgeFactor;
     void main() {
         vec2 center = gl_PointCoord - vec2(0.5);
         float dist = length(center);
-        float alpha = smoothstep(0.5, 0.01, dist) * 0.95;
-        float core = smoothstep(0.25, 0.0, dist) * 0.55;
-        vec3 finalColor = vColor + vec3(core);
+        // Hạt càng vào gần tâm (vEdgeFactor < 0.45) thì alpha mờ nhạt dần (từ 0.2 -> 1.0)
+        float edgeAlpha = 0.2 + 0.8 * smoothstep(0.08, 0.55, vEdgeFactor);
+        float alpha = smoothstep(0.5, 0.01, dist) * 0.85 * edgeAlpha;
+        float core = smoothstep(0.25, 0.0, dist) * 0.25;
+        vec3 finalColor = vColor * (1.0 + core);
         gl_FragColor = vec4(finalColor, alpha);
     }
 `;
@@ -247,14 +263,14 @@ const centerNameData = createCenterNameSprite(CONFIG.name || "Mai Anh");
 const centerNameMaterial = new THREE.SpriteMaterial({
     map: centerNameData.texture,
     transparent: true,
-    opacity: 0.95,
+    opacity: 1.0,
     depthWrite: false,
     blending: THREE.AdditiveBlending
 });
 const centerNameSprite = new THREE.Sprite(centerNameMaterial);
-const centerNameHeight = 0.66;
+const centerNameHeight = 0.68;
 centerNameSprite.scale.set(centerNameHeight * centerNameData.aspect, centerNameHeight, 1);
-centerNameSprite.position.set(0, HEART_Y_OFFSET, 0.1); // Nằm ở tâm trái tim
+centerNameSprite.position.set(0, HEART_Y_OFFSET, 0.3); // Nằm nổi phía trước tâm trái tim giúp nhìn chữ cực kỳ rõ nét
 heartGroup.add(centerNameSprite);
 
 // Nhóm cha chứa TOÀN BỘ khung cảnh tương tác được (trái tim + vòng chữ + dòng hạt)
@@ -308,9 +324,9 @@ const textColors = ["#ffffff", "#ffd6ee", "#ffe0f0", "#ffb8e0"];
 
 // Số vòng đồng tâm và số item mỗi vòng
 const RING_LAYERS = [
-    { radius: 2.0, count: Math.floor(10 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.75, opacity: 1.0, speed: 1.0, yJitter: 0.15 },
-    { radius: 2.7, count: Math.floor(13 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.55, opacity: 0.75, speed: -0.7, yJitter: 0.25 },
-    { radius: 3.4, count: Math.floor(15 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.42, opacity: 0.5, speed: 0.5, yJitter: 0.35 },
+    { radius: 2.0, count: Math.floor(10 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.75, opacity: 1.0, speed: 0.35, yJitter: 0.15 },
+    { radius: 2.7, count: Math.floor(13 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.55, opacity: 0.75, speed: -0.25, yJitter: 0.25 },
+    { radius: 3.4, count: Math.floor(15 * RING_TEXT_COUNT_MULTIPLIER), scale: 0.42, opacity: 0.5, speed: 0.18, yJitter: 0.35 },
 ];
 
 const ringGroup = new THREE.Group();
@@ -767,7 +783,7 @@ function animate() {
     // Tự động xoay chậm toàn cảnh khi người dùng không tương tác (tích lũy đều, dừng lại khi có tương tác)
     const timeSinceInteraction = Date.now() - lastInteractionTime;
     if (timeSinceInteraction > AUTO_ROTATE_DELAY) {
-        idleSpinAccum += 0.045 * delta;
+        idleSpinAccum += 0.02 * delta;
     }
 
     // Gán trực tiếp (không +=) vì currentRotationX/Y và dragRotationX/Y đã là giá trị bị chặn biên,
@@ -775,15 +791,15 @@ function animate() {
     worldGroup.rotation.x = currentRotationX * 0.6 + dragRotationX * 0.3;
     worldGroup.rotation.y = currentRotationY * 0.3 + dragRotationY * 0.15 + idleSpinAccum;
 
-    // Nhịp đập trái tim: scale từ 1 lên ~1.035 rồi về 1, chu kỳ 1.6-2s
-    const beatCycle = 1.8; // giây
+    // Nhịp đập trái tim: chuyển động nhịp đập mượt mà, chậm rãi & thư thái
+    const beatCycle = 2.8; // 2.8 giây / nhịp
     heartBeatPhase = (elapsed % beatCycle) / beatCycle;
     // Dùng hàm mượt kiểu "nhịp tim" - nhanh lúc phồng, chậm lúc xẹp
     const beatValue = Math.pow(Math.sin(heartBeatPhase * Math.PI), 2);
-    const beatScale = 1 + beatValue * 0.035;
+    const beatScale = 1 + beatValue * 0.03;
     heartGroup.scale.set(beatScale, beatScale, beatScale);
 
-    // ---- Rung nhẹ từng hạt + hạt viền tách ra rồi bay lại ----
+    // ---- Rung nhẹ mượt mà từng hạt + hạt viền tách ra rồi bay lại ----
     if (introComplete) {
         const posAttr = heartGeometry.attributes.position;
         for (let i = 0; i < HEART_COUNT; i++) {
@@ -791,11 +807,11 @@ function animate() {
             const phase = heartRandomPhase[i];
             const edge = heartEdgeFactors[i];
 
-            // Rung nhẹ toàn bộ hạt
-            const jitterAmount = 0.008;
-            const jx = Math.sin(elapsed * 2.2 + phase) * jitterAmount;
-            const jy = Math.cos(elapsed * 1.8 + phase * 1.3) * jitterAmount;
-            const jz = Math.sin(elapsed * 2.0 + phase * 0.7) * jitterAmount;
+            // Rung chuyển động chậm rãi nhẹ nhàng toàn bộ hạt
+            const jitterAmount = 0.006;
+            const jx = Math.sin(elapsed * 1.1 + phase) * jitterAmount;
+            const jy = Math.cos(elapsed * 0.9 + phase * 1.3) * jitterAmount;
+            const jz = Math.sin(elapsed * 1.0 + phase * 0.7) * jitterAmount;
 
             // Một số hạt viền thỉnh thoảng tách ra xa hơn rồi quay lại (chu kỳ dài, chỉ áp dụng cho hạt viền)
             let separation = 0;
