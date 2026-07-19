@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // Fallback nếu vì lý do nào đó CONFIG trong config.js không tải được
     const fallbackConfig = {
-      name: "PHẠM ANH ĐỨC",
+      name: "PHAM ANH DUC",
       birthdate: "2005-12-17",
       girlfriendName: "Mai Anh",
       anniversary: "2026-07-04T23:40",
